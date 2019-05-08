@@ -1,15 +1,32 @@
 import React, { useContext } from "react"
 import { Link } from "react-router-dom"
-import { UserContext, ThemeContext } from "./context"
+import { AppContext } from "./context"
+
 export const HomePage = () => {
-  const { username } = useContext(UserContext)
-  const { theme, setTheme } = useContext(ThemeContext)
+  const { globalState, dispatch } = useContext(AppContext)
+  const user = globalState.User
+  if (!user.hasOwnProperty("username")) {
+    dispatch({ name: "User" })
+  }
+
+  const theme = globalState.Theme.theme
+
   return (
-    <div style={{ backgroundColor: theme ? "white" : "black" }}>
-      <h1 style={{ color: theme ? "black" : "white" }}>
-        Home Page: {username}
+    <div style={{ backgroundColor: theme === "LIGHT" ? "white" : "black" }}>
+      <h1 style={{ color: theme === "LIGHT" ? "black" : "white" }}>
+        Home Page: {user.username}
       </h1>
-      <button onClick={() => setTheme(!theme)}>Theme Switcher</button>
+      <button
+        onClick={() =>
+          dispatch(
+            theme === "LIGHT"
+              ? { name: "Theme", type: "DARK" }
+              : { name: "Theme", type: "LIGHT" }
+          )
+        }
+      >
+        Theme Switcher
+      </button>
       <br />
       <Link to="/no-context">No Context</Link>
       <br />

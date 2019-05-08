@@ -1,15 +1,16 @@
 import React, { useContext } from "react"
-import { DataContext } from "./context"
+import { AppContext } from "./context"
+
 export const PostPage = () => {
-  const { state, dispatch } = useContext(DataContext)
-  if (!state.hasOwnProperty("POST")) {
-    dispatch({ modelName: "POST", type: "GET" })
+  const { globalState, dispatch } = useContext(AppContext)
+  if (!Object.keys(globalState.Post.data).length) {
+    dispatch({ name: "Post", type: "GET" })
   }
   return (
     <>
       <h1>Posts</h1>
-      {state && state.POST && state.POST.data ? (
-        state.POST.data.map((post, id) => (
+      {globalState.Post.data.length ? (
+        globalState.Post.data.map((post, id) => (
           <div key={id}>
             {post.id} - {post.date.toString()} - {post.value}
           </div>

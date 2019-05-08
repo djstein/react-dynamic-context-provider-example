@@ -2,15 +2,18 @@ import React from "react"
 import { BrowserRouter, Switch } from "react-router-dom"
 import { renderRoutes } from "./renderRoutes"
 import { routes } from "./routes"
-import { ThemeProvider } from "./context"
+import { AppProvider } from "./context"
+import { User, Post, Theme } from "./models"
+
+const models = { User, Post, Theme }
 
 const App = () => (
   <div className="App">
-    <ThemeProvider>
+    <AppProvider models={models}>
       <BrowserRouter basename={"/"}>
         <Switch>{renderRoutes(routes)}</Switch>
       </BrowserRouter>
-    </ThemeProvider>
+    </AppProvider>
   </div>
 )
 
