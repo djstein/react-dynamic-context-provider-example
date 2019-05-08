@@ -1,26 +1,17 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React from "react"
+import { BrowserRouter, Switch } from "react-router-dom"
+import { renderRoutes } from "./renderRoutes"
+import { routes } from "./routes"
+import { ThemeProvider } from "./context"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+const App = () => (
+  <div className="App">
+    <ThemeProvider>
+      <BrowserRouter basename={"/"}>
+        <Switch>{renderRoutes(routes)}</Switch>
+      </BrowserRouter>
+    </ThemeProvider>
+  </div>
+)
 
-export default App;
+export default App
